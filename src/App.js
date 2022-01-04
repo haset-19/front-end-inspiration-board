@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Board from "./components/Board";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Inspiration Board</h1>
+
+      <section id="boards_container">
+        <h2>Boards</h2>
+        <ol id="boards_list">
+          <li>
+            <div>Board 1</div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="selected_board_container">
+        <h2>Selected boards</h2>
+      </section>
+
+      <section id="new_board_form_container">
+        <h2>Create a new board</h2>
+      </section>
+
+      <section id="card-list-container">
+        <h2>Cards</h2>
+      </section>
+
+      <Board />
+      {/* <CardsList /> */}
+      {/* <NewBoardForm /> */}
+      {/* <NewCardForm /> */}
     </div>
   );
 }
