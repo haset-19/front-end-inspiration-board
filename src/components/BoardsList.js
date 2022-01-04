@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function BoardsList() {
     return (
-        <h3>Boards</h3>
+        <h2>Boards</h2>
     )
 }
 

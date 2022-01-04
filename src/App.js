@@ -20,7 +20,7 @@ function App() {
   //   // console.log(event.target)
   // }
   const handleClick = board => () => {
-    console.log(board)
+    // console.log(board)
     setSelectedBoard(board)
   }
 
@@ -57,7 +57,7 @@ function App() {
 
         <div className="selected-board">
           <h2>Selected Board</h2>
-          <h4>{selectedBoard.title}</h4>
+          <h4>{selectedBoard.title} - {selectedBoard.owner}</h4>
         </div>
       </section>
 
