@@ -19,7 +19,7 @@ function App() {
       .get(`http://localhost:5000/boards/${board_id}/cards`)
       .then((response) => {
         const cards = response.data.cards
-        // console.log(cards)
+        console.log(cards)
         setAllCards(cards)
       })
       .catch((error) => {
@@ -56,6 +56,29 @@ function App() {
       })
   },[])
 
+  // const updateApi = (card) {
+  //   axios
+  //     .
+  // }
+
+  // update db with  request
+  // update state
+  const addLike = (id) => {
+    const newCards = allCards.map((card) => {
+      if (card.id === id) {
+        // updateApi(task);
+        return {
+          id: card.id,
+          board_id: card.board_id,
+          message: card.message,
+          likes_count: (card.likes_count + 1)
+        };
+      }
+      return card;
+    });
+    setAllCards(newCards);
+  }
+
 
 
   return (
@@ -72,12 +95,12 @@ function App() {
 
         <div className="selected-board">
           <h2>Selected Board</h2>
-          <h4>{selectedBoard.title} {selectedBoard.owner}</h4>
+          <h4>{selectedBoard.title} - {selectedBoard.owner}</h4>
         </div>
       </section>
 
       <section>
-        <CardsList cards={allCards}/>
+        <CardsList cards={allCards} addLike={addLike}/>
       </section>
       {errorMessage}
     </div>

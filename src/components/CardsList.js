@@ -27,6 +27,8 @@ const CardsList = (props) => {
             text= {card.message}
             likes={card.likes_count}
             key = {card.id}
+            addLike = {props.addLike}
+            id = {card.id}
             />
         )
     })
