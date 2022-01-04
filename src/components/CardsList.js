@@ -1,20 +1,22 @@
-import React from 'react'
-import Card from './Card.js'
+import React from "react";
+import Card from "./Card";
 
-function Board() {
-    return (
+const CardsList = ({ cards }) => {
+  const getCardList = (cards) => {
+    return cards.map((card) => {
+      return (
         <div>
-            <h2>Cards for This Board</h2>
-            <Card 
-            text="You're like a cup of tea: green! 😍"
-            likes={3}
-            />
-            <Card
-            text="You're strong and you have good taste in computers. 🐶🎉"
-            likes={5} 
-            />
+          <Card
+            key={card.card_id}
+            id={card.card_id}
+            message={card.message}
+            likes_count={card.likes_count}
+          />
         </div>
-    )
-}
+      );
+    });
+  };
+  return <ul> {getCardList(cards)}</ul>;
+};
 
-export default Board;
+export default CardsList;
