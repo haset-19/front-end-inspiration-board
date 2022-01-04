@@ -93,6 +93,18 @@ function App() {
   //   setAllCards(newCards);
   // }
 
+  // remove from db and set state
+  const deleteCard = (id) => {
+    axios
+      .delete(`http://localhost:5000/cards/${id}`)
+      .then(() => {
+        const newCards = allCards.filter((card) => card.id !== id)
+        setAllCards(newCards)
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  }
 
 
   return (
@@ -114,7 +126,11 @@ function App() {
       </section>
 
       <section>
-        <CardsList cards={allCards} addLike={addLike}/>
+        <CardsList 
+          cards={allCards} 
+          addLike={addLike}
+          deleteCard={deleteCard}
+          />
       </section>
       {errorMessage}
     </div>

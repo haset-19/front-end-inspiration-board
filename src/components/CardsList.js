@@ -29,6 +29,7 @@ const CardsList = (props) => {
             key = {card.id}
             addLike = {props.addLike}
             id = {card.id}
+            deleteCard = {props.deleteCard}
             />
         )
     })
