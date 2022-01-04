@@ -1,10 +1,11 @@
 import React from 'react'
+import './Card.css'
 
-function Card(props){
+function Card( {text, likes}){
     return (
-        <div>
-            <h5>{props.text}</h5>
-            <h6>Likes: {props.likes}</h6>
+        <div className="card">
+            <h5 id="text">{text}</h5>
+            <h6>{likes}💕</h6>
             <button>+1</button>
             <button>Delete</button>
         </div>

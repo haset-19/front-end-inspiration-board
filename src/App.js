@@ -10,9 +10,22 @@ import { useState, useEffect } from 'react'
 function App() {
   const [boardsElements, setBoardsElements] = useState([])
   const [errorMessage, setErrorMessage] = useState("")
-  const [selectedBoard, setSelectedBoard] = useState({title:"Default Board"})
+  const [selectedBoard, setSelectedBoard] = useState({title:"Select a board!"})
   const [allBoards, setAllBoards] = useState("")
+  const [allCards, setAllCards] = useState([])
 
+  const getCards = (board_id) => {
+    axios
+      .get(`http://localhost:5000/boards/${board_id}/cards`)
+      .then((response) => {
+        const cards = response.data.cards
+        // console.log(cards)
+        setAllCards(cards)
+      })
+      .catch((error) => {
+        setErrorMessage(console.log(error.response.data.message))
+      })
+  }
   // figure out what is happening here!
 
   // const handleClick = value => () => console.log(value)
@@ -22,6 +35,8 @@ function App() {
   const handleClick = board => () => {
     // console.log(board)
     setSelectedBoard(board)
+    getCards(board.id)
+    // console.log(`all cards: ${allCards}`)
   }
 
   useEffect( () => {
@@ -57,12 +72,12 @@ function App() {
 
         <div className="selected-board">
           <h2>Selected Board</h2>
-          <h4>{selectedBoard.title} - {selectedBoard.owner}</h4>
+          <h4>{selectedBoard.title} {selectedBoard.owner}</h4>
         </div>
       </section>
 
       <section>
-        <CardsList />
+        <CardsList cards={allCards}/>
       </section>
       {errorMessage}
     </div>
