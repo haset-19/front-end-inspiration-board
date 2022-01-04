@@ -56,28 +56,42 @@ function App() {
       })
   },[])
 
-  // const updateApi = (card) {
-  //   axios
-  //     .
-  // }
+  const addLike = (id) => {
+      axios
+        .put(`http://localhost:5000/cards/${id}/like`)
+        .then(() => {
+          const newCards = allCards.map((card) => {
+            if (card.id === id) {
+              return {
+                id: card.id,
+                board_id: card.board_id,
+                message: card.message,
+                likes_count: (card.likes_count + 1)
+              };
+            }
+            return card;
+          });
+          setAllCards(newCards);
+      })
+  }
 
   // update db with  request
   // update state
-  const addLike = (id) => {
-    const newCards = allCards.map((card) => {
-      if (card.id === id) {
-        // updateApi(task);
-        return {
-          id: card.id,
-          board_id: card.board_id,
-          message: card.message,
-          likes_count: (card.likes_count + 1)
-        };
-      }
-      return card;
-    });
-    setAllCards(newCards);
-  }
+  // const addLike = (id) => {
+  //   const newCards = allCards.map((card) => {
+  //     if (card.id === id) {
+  //       // updateApi(task);
+  //       return {
+  //         id: card.id,
+  //         board_id: card.board_id,
+  //         message: card.message,
+  //         likes_count: (card.likes_count + 1)
+  //       };
+  //     }
+  //     return card;
+  //   });
+  //   setAllCards(newCards);
+  // }
 
 
 
