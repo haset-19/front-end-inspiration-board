@@ -1,15 +1,17 @@
-import './App.css';
-import BoardsList from './components/BoardsList'
-import CardsList from './components/CardsList.js'
-import axios from 'axios';
-import { useState, useEffect } from 'react'
 
+import "./App.css";
+import BoardsList from "./components/BoardsList";
+import CardsList from "./components/CardsList.js";
+import NewBoardForm from "./components/NewBoardForm";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [errorMessage, setErrorMessage] = useState("")
-  const [selectedBoard, setSelectedBoard] = useState({})
-  const [allBoards, setAllBoards] = useState([])
-  const [allCards, setAllCards] = useState([])
+  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedBoard, setSelectedBoard] = useState({});
+  const [allBoards, setAllBoards] = useState([]);
+  const [allCards, setAllCards] = useState([]);
+  
 
   const getCards = (board_id) => {
     axios
@@ -89,8 +91,21 @@ function App() {
       .catch((error) => {
         console.log(error.response.data);
       });
-  }
+  };
 
+  const createNewBoard = (newBoard) => {
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/boards`, newBoard)
+      .then((response) => {
+        console.log("Response:", response.data.board);
+        allBoards.push(response.data.board);
+        setAllBoards(allBoards);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+        alert("Couldn't create a new board.");
+      });
+  };
 
 
   return (
@@ -112,6 +127,11 @@ function App() {
             <h4>{selectedBoard.title} - {selectedBoard.owner}</h4>
           } 
         </div>
+           
+        <section id="new_board_form_container">
+          <h2>Create a new board</h2>
+          <NewBoardForm createNewBoard={createNewBoard}></NewBoardForm>
+      </section>
       </section>
 
       <section>

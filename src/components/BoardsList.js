@@ -19,4 +19,3 @@ const BoardsList = (props) => {
 }
 
 export default BoardsList;
-
