@@ -1,21 +1,11 @@
 import React from "react";
 
-function Board(props) {
+const Board = (props) => {
   return (
-    <section>
-      <p>{props.text}</p>
-      <button>+1</button>
-      <button>Delete</button>
-    </section>
+    <li onClick={() => props.handleClick(props.id, props.title, props.owner)}>
+      {props.title}
+    </li>
   );
-}
-
-// const Board = (props) => {
-//   return (
-//     <div onClick={() => props.onBoardSelect(props.board)}>
-//       {props.board.title}
-//     </div>
-//   );
-// };
+};
 
 export default Board;
