@@ -1,10 +1,22 @@
 import React from 'react';
-import axios from 'axios';
+import Board from './Board.js'
 
-function BoardsList() {
+const BoardsList = (props) => {
+    const boardComponents = (props.allBoards).map( (board) => {
+        return (
+            < Board 
+            id={board.id}
+            owner={board.owner}
+            title={board.title}
+            key={board.id}
+            handleClick={props.handleClick}
+            />
+        )
+    })
     return (
-        <h2>Boards</h2>
+        <ol>{boardComponents}</ol> 
     )
 }
 
 export default BoardsList;
+
