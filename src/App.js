@@ -80,9 +80,9 @@ function App() {
     axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/boards`, newBoard)
       .then((response) => {
-        console.log("Response:", response.data.board);
-        allBoards.push(response.data.board);
-        setAllBoards(allBoards);
+        let newBoards = [...allBoards]
+        newBoards.push(newBoard);
+        setAllBoards(newBoards);
       })
       .catch((error) => {
         console.log("Error:", error);
