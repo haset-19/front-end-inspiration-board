@@ -1,14 +1,57 @@
-import React from "react";
+import React from 'react'
+import Card from './Card.js'
+import PropTypes from 'prop-types'
+import './CardsList.css'
 
-function Card(props) {
-  return (
-    <div>
-      <h5>{props.text}</h5>
-      <h6>Likes: {props.likes}</h6>
-      <button>+1</button>
-      <button>Delete</button>
-    </div>
-  );
+// function CardsList(props) {
+//     return (
+//         <div>
+//             <h1>{props.cards}</h1>
+//             <h2>Cards for This Board</h2>
+//             <Card 
+//             text="You're like a cup of tea: green! 😍"
+//             likes={3}
+//             />
+//             <Card
+//             text="You're strong and you have good taste in computers. 🐶🎉"
+//             likes={5} 
+//             />
+//         </div>
+//     )
+// }
+
+const CardsList = (props) => {
+    const cardComponents = (props.cards).map((card) => {
+        return (
+            <Card 
+            text= {card.message}
+            likes={card.likes_count}
+            key = {card.id}
+            addLike = {props.addLike}
+            id = {card.id}
+            deleteCard = {props.deleteCard}
+            />
+        )
+    })
+    return (
+        <div>
+            <h2>Cards for This Board</h2>
+            <ul className="cards_list">{cardComponents}</ul>
+        </div>
+    )
 }
 
-export default Card;
+// Board.propTypes = {
+//     cards: PropTypes.arrayOf(
+//       PropTypes.arrayOf(
+//         PropTypes.shape({
+//           id: PropTypes.number.isRequired,
+//           board_id: PropTypes.number.isRequired,
+//           message_id: PropTypes.string.isRequired,
+//           likes_count: PropTypes.number.isRequired
+//         })
+//       )
+//     )
+//   };
+
+export default CardsList;

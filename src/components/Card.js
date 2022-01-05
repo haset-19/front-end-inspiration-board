@@ -1,25 +1,15 @@
-const Card = (props) => {
-  return (
-    <div className="card-item">
-      <p className="card-item__message">{props.card.message}</p>
-      <ul className="card-item__controls">
-        <li>
-          <p>{props.card.likes_count} 💕</p>
-        </li>
-        <li>
-          <p onClick={() => props.plusOneCardItem(props.card)}>+1</p>
-        </li>
-        <li>
-          <p
-            className="card-item__delete"
-            onClick={() => props.deleteCardItem(props.card)}
-          >
-            Delete
-          </p>
-        </li>
-      </ul>
-    </div>
-  );
-};
+import React from 'react'
+import './Card.css'
+
+function Card({ text, likes, addLike, id, deleteCard }){
+    return (
+        <div className="card">
+            <h5 id="text">{text}</h5>
+            <h6>{likes}💕</h6>
+            <button onClick={() => addLike(id)}>+1</button>
+            <button onClick={() => deleteCard(id)}>Delete</button>
+        </div>
+    )
+}
 
 export default Card;

@@ -1,3 +1,4 @@
+
 import "./App.css";
 import BoardsList from "./components/BoardsList";
 import CardsList from "./components/CardsList.js";
@@ -10,52 +11,56 @@ function App() {
   const [selectedBoard, setSelectedBoard] = useState({});
   const [allBoards, setAllBoards] = useState([]);
   const [allCards, setAllCards] = useState([]);
+  
 
   const getCards = (board_id) => {
     axios
       .get(`http://localhost:5000/boards/${board_id}/cards`)
       .then((response) => {
-        const cards = response.data.cards;
-        console.log(cards);
-        setAllCards(cards);
+        const cards = response.data.cards
+        console.log(cards)
+        setAllCards(cards)
       })
       .catch((error) => {
-        setErrorMessage(console.log(error.response.data.message));
-      });
-  };
+        setErrorMessage(console.log(error.response.data.message))
+      })
+  }
 
   const handleClick = (id, title, owner) => {
-    setSelectedBoard({ id: id, title: title, owner: owner });
-    getCards(id);
-  };
+    setSelectedBoard({id:id, title:title, owner:owner})
+    getCards(id)
+  }
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/boards")
+
+  useEffect( () => {
+    axios.get("http://localhost:5000/boards")
       .then((response) => {
-        setAllBoards(response.data);
+        setAllBoards(response.data)
       })
       .catch((error) => {
-        setErrorMessage(<section>{error.response.data.message}</section>);
-      });
-  }, []);
+        setErrorMessage(<section>{error.response.data.message}</section>)
+      })
+  },[])
+
 
   const addLike = (id) => {
-    axios.put(`http://localhost:5000/cards/${id}/like`).then(() => {
-      const newCards = allCards.map((card) => {
-        if (card.id === id) {
-          return {
-            id: card.id,
-            board_id: card.board_id,
-            message: card.message,
-            likes_count: card.likes_count + 1,
-          };
-        }
-        return card;
-      });
-      setAllCards(newCards);
-    });
-  };
+      axios
+        .put(`http://localhost:5000/cards/${id}/like`)
+        .then(() => {
+          const newCards = allCards.map((card) => {
+            if (card.id === id) {
+              return {
+                id: card.id,
+                board_id: card.board_id,
+                message: card.message,
+                likes_count: (card.likes_count + 1)
+              };
+            }
+            return card;
+          });
+          setAllCards(newCards);
+      })
+  }
 
   // update db with  request
   // update state
@@ -80,8 +85,8 @@ function App() {
     axios
       .delete(`http://localhost:5000/cards/${id}`)
       .then(() => {
-        const newCards = allCards.filter((card) => card.id !== id);
-        setAllCards(newCards);
+        const newCards = allCards.filter((card) => card.id !== id)
+        setAllCards(newCards)
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -102,32 +107,39 @@ function App() {
       });
   };
 
+
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
 
-      <section id="boards_container">
-        <h2>Boards</h2>
-        <BoardsList allBoards={allBoards} handleClick={handleClick} />
+      <section>
+        <BoardsList 
+          allBoards={allBoards}
+          handleClick={handleClick}
+          />
 
-        <div className="selected-board" id="selected_board_container">
+        <div className="selected-board">
           <h2>Selected Board</h2>
-          {!selectedBoard.title && <h4>Select a board!</h4>}
-          {selectedBoard.title && (
-            <h4>
-              {selectedBoard.title} - {selectedBoard.owner}
-            </h4>
-          )}
+          { !selectedBoard.title &&
+            <h4>Select a board!</h4>
+          }
+          { selectedBoard.title &&
+            <h4>{selectedBoard.title} - {selectedBoard.owner}</h4>
+          } 
         </div>
+           
+        <section id="new_board_form_container">
+          <h2>Create a new board</h2>
+          <NewBoardForm createNewBoard={createNewBoard}></NewBoardForm>
+      </section>
       </section>
 
-      <section id="new_board_form_container">
-        <h2>Create a new board</h2>
-        <NewBoardForm createNewBoard={createNewBoard}></NewBoardForm>
-      </section>
-
-      <section id="card-list-container">
-        <CardsList cards={allCards} addLike={addLike} deleteCard={deleteCard} />
+      <section>
+        <CardsList 
+          cards={allCards} 
+          addLike={addLike}
+          deleteCard={deleteCard}
+          />
       </section>
       {errorMessage}
     </div>
