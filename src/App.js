@@ -15,7 +15,7 @@ function App() {
 
   const getCards = (board_id) => {
     axios
-      .get(`http://localhost:5000/boards/${board_id}/cards`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/boards/${board_id}/cards`)
       .then((response) => {
         const cards = response.data.cards
         console.log(cards)
@@ -33,7 +33,8 @@ function App() {
 
 
   useEffect( () => {
-    axios.get("http://localhost:5000/boards")
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
       .then((response) => {
         setAllBoards(response.data)
       })
@@ -45,7 +46,7 @@ function App() {
 
   const addLike = (id) => {
       axios
-        .put(`http://localhost:5000/cards/${id}/like`)
+        .put(`${process.env.REACT_APP_BACKEND_URL}/cards/${id}/like`)
         .then(() => {
           const newCards = allCards.map((card) => {
             if (card.id === id) {
@@ -62,28 +63,10 @@ function App() {
       })
   }
 
-  // update db with  request
-  // update state
-  // const addLike = (id) => {
-  //   const newCards = allCards.map((card) => {
-  //     if (card.id === id) {
-  //       // updateApi(task);
-  //       return {
-  //         id: card.id,
-  //         board_id: card.board_id,
-  //         message: card.message,
-  //         likes_count: (card.likes_count + 1)
-  //       };
-  //     }
-  //     return card;
-  //   });
-  //   setAllCards(newCards);
-  // }
 
-  // remove from db and set state
   const deleteCard = (id) => {
     axios
-      .delete(`http://localhost:5000/cards/${id}`)
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${id}`)
       .then(() => {
         const newCards = allCards.filter((card) => card.id !== id)
         setAllCards(newCards)
@@ -97,9 +80,9 @@ function App() {
     axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/boards`, newBoard)
       .then((response) => {
-        console.log("Response:", response.data.board);
-        allBoards.push(response.data.board);
-        setAllBoards(allBoards);
+        let newBoards = [...allBoards]
+        newBoards.push(newBoard);
+        setAllBoards(newBoards);
       })
       .catch((error) => {
         console.log("Error:", error);
