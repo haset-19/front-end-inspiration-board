@@ -92,18 +92,24 @@ function App() {
   const createNewCard = (newCard) => {
     // console.log(selectedBoard);
     // console.log(selectedBoard.id);
-    // console.log(newCard);
+    // console.log(`${newCard}`);
     // console.log(newCard.message);
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/card`,
+        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/card`, 
         newCard
       )
       .then((response) => {
         let cards = [...allCards];
+        newCard["likes_count"] = 0;
+        newCard["id"] = response.data.card_id;
         cards.push(newCard);
         setAllCards(cards);
       })
+      console.log("all cards: ")
+      allCards.forEach((card)=>
+      console.log(`card.card_id: ${card.card_id}, card.id: ${card.id}`)
+    )
       .catch((error) => {
         console.log("Error:", error);
         alert("Couldn't create new card");
