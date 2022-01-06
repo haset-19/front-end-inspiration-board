@@ -26,7 +26,9 @@ function App() {
   };
 
   const handleClick = (id, title, owner) => {
+    console.log("id:", id);
     setSelectedBoard({ id: id, title: title, owner: owner });
+
     getCards(id);
   };
 
@@ -77,6 +79,7 @@ function App() {
       .post(`${process.env.REACT_APP_BACKEND_URL}/boards`, newBoard)
       .then((response) => {
         let newBoards = [...allBoards];
+        newBoard["id"] = response.data.board_id;
         newBoards.push(newBoard);
         setAllBoards(newBoards);
       })
@@ -87,10 +90,10 @@ function App() {
   };
 
   const createNewCard = (newCard) => {
-    console.log(selectedBoard);
-    console.log(selectedBoard.id);
-    console.log(newCard);
-    console.log(newCard.message);
+    // console.log(selectedBoard);
+    // console.log(selectedBoard.id);
+    // console.log(newCard);
+    // console.log(newCard.message);
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/card`,
