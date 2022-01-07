@@ -122,7 +122,10 @@ function App() {
       <h1>Inspiration Board</h1>
 
       <section>
-        <BoardsList allBoards={allBoards} handleClick={handleClick} />
+        <section id="boards_container">
+          <h2>Boards</h2>
+          <BoardsList allBoards={allBoards} handleClick={handleClick} />
+        </section>
 
         <div className="selected-board">
           <h2>Selected Board</h2>
