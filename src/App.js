@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
+      .get(`https://insp-brd-back-end.herokuapp.com/boards`)
       .then((response) => {
         setAllBoards(response.data);
       })
