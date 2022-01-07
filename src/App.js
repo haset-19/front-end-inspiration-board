@@ -14,7 +14,7 @@ function App() {
 
   const getCards = (board_id) => {
     axios
-      .get(`https://insp-brd-back-end.herokuapp.com/boards/${board_id}/cards`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/boards/${board_id}/cards`)
       .then((response) => {
         const cards = response.data.cards;
         console.log(cards);
@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`https://insp-brd-back-end.herokuapp.com/boards`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
       .then((response) => {
         setAllBoards(response.data);
       })
