@@ -121,13 +121,14 @@ function App() {
     <div className="App">
       <h1>Inspiration Board</h1>
 
-      <section>
-        <section id="boards_container">
+      <section id="boards_container" className="container">
+        <section id="boards">
           <h2>Boards</h2>
+
           <BoardsList allBoards={allBoards} handleClick={handleClick} />
         </section>
 
-        <div className="selected-board">
+        <section id="selected-board">
           <h2>Selected Board</h2>
           {!selectedBoard.title && <h4>Select a board!</h4>}
           {selectedBoard.title && (
@@ -135,21 +136,27 @@ function App() {
               {selectedBoard.title} - {selectedBoard.owner}
             </h4>
           )}
-        </div>
+        </section>
 
-        <section id="new_board_form_container">
+        <section id="new_board_form">
           <h2>Create a new board</h2>
           <NewBoardForm createNewBoard={createNewBoard}></NewBoardForm>
         </section>
       </section>
 
-      <section>
-        <CardsList cards={allCards} addLike={addLike} deleteCard={deleteCard} />
-      </section>
+      <section id="cards_container" className="container">
+        <section id="cards">
+          <CardsList
+            cards={allCards}
+            addLike={addLike}
+            deleteCard={deleteCard}
+          />
+        </section>
 
-      <section id="new_card_form_container">
-        <h2>Create a new card</h2>
-        <NewCardForm createNewCard={createNewCard}></NewCardForm>
+        <section id="new_card_form">
+          <h2>Create a new card</h2>
+          <NewCardForm createNewCard={createNewCard}></NewCardForm>
+        </section>
       </section>
 
       {errorMessage}
